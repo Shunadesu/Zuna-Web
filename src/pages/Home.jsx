@@ -144,14 +144,17 @@ const Home = () => {
           <div className="absolute top-40 left-40 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
+        <div className="relative z-10 max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-4">
           <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 mb-6 mt-28">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-gray-900 mb-6 mt-28 bg-clip-text bg-gradient-to-r from-primary-600 to-purple-600">
               Xây dựng website
-              <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent my-3">
                 chuyên nghiệp
               </span>
-              trong vài phút
+              với
+              
+                ZunaWeb
+              
             </h1>
             
             <p className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto leading-relaxed">
