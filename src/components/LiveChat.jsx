@@ -1,169 +1,124 @@
 import React, { useState } from 'react';
+import { MessageCircle, X, Send, User, Bot } from 'lucide-react';
 
 const LiveChat = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
       id: 1,
-      type: 'bot',
-      text: 'Xin chào! Tôi có thể giúp gì cho bạn? 😊',
+      text: 'Xin chào! Tôi có thể giúp gì cho bạn?',
+      sender: 'bot',
       timestamp: new Date()
     }
   ]);
   const [inputMessage, setInputMessage] = useState('');
 
-  const quickReplies = [
-    'Tôi muốn xem templates',
-    'Giá cả như thế nào?',
-    'Có hỗ trợ kỹ thuật không?',
-    'Tôi cần tư vấn'
-  ];
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    if (!inputMessage.trim()) return;
 
-  const handleSendMessage = (text) => {
-    if (!text.trim()) return;
-
-    // Add user message
-    const userMessage = {
+    const newMessage = {
       id: messages.length + 1,
-      type: 'user',
-      text: text,
+      text: inputMessage,
+      sender: 'user',
       timestamp: new Date()
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages([...messages, newMessage]);
     setInputMessage('');
 
     // Simulate bot response
     setTimeout(() => {
-      const botResponses = {
-        'Tôi muốn xem templates': 'Tuyệt vời! Bạn có thể xem tất cả templates tại trang Templates. Tôi sẽ gửi link cho bạn.',
-        'Giá cả như thế nào?': 'Chúng tôi có nhiều gói giá khác nhau, từ miễn phí đến premium. Bạn muốn biết chi tiết gói nào?',
-        'Có hỗ trợ kỹ thuật không?': 'Có! Chúng tôi cung cấp hỗ trợ kỹ thuật 24/7 qua email, chat và hotline.',
-        'Tôi cần tư vấn': 'Tôi sẽ kết nối bạn với đội ngũ tư vấn chuyên nghiệp. Bạn có thể để lại số điện thoại không?'
-      };
-
       const botResponse = {
         id: messages.length + 2,
-        type: 'bot',
-        text: botResponses[text] || 'Cảm ơn bạn đã liên hệ! Tôi sẽ chuyển thông tin cho đội ngũ hỗ trợ.',
+        text: 'Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm nhất có thể.',
+        sender: 'bot',
         timestamp: new Date()
       };
-
       setMessages(prev => [...prev, botResponse]);
     }, 1000);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    handleSendMessage(inputMessage);
-  };
-
   return (
     <>
-      {/* Chat Widget */}
+      {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 w-80 h-96 bg-white rounded-lg shadow-2xl border border-gray-200 z-50 flex flex-col">
+        <div className="fixed bottom-20 right-6 z-50 w-80 h-96 bg-white rounded-lg shadow-2xl border border-gray-200 flex flex-col">
           {/* Header */}
-          <div className="bg-gradient-to-r from-primary-500 to-purple-500 text-white p-4 rounded-t-lg">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
-                <div>
-                  <h3 className="font-semibold">ZunaWeb Support</h3>
-                  <p className="text-sm opacity-90">Trực tuyến</p>
-                </div>
-              </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="text-white hover:text-gray-200 transition-colors"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+          <div className="flex items-center justify-between p-4 border-b border-gray-200">
+            <div className="flex items-center space-x-2">
+              <MessageCircle className="w-5 h-5 text-primary-600" />
+              <span className="font-medium text-gray-900">Hỗ trợ trực tuyến</span>
             </div>
+            <button
+              onClick={() => setIsOpen(false)}
+              className="text-gray-500 hover:text-gray-700"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 p-4 overflow-y-auto space-y-3">
+          <div className="flex-1 p-4 overflow-y-auto space-y-4">
             {messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div
-                  className={`max-w-xs px-3 py-2 rounded-lg ${
-                    message.type === 'user'
-                      ? 'bg-primary-500 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                  className={`flex items-start space-x-2 max-w-xs ${
+                    message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''
                   }`}
                 >
-                  <p className="text-sm">{message.text}</p>
-                  <p className="text-xs opacity-70 mt-1">
-                    {message.timestamp.toLocaleTimeString('vi-VN', { 
-                      hour: '2-digit', 
-                      minute: '2-digit' 
-                    })}
-                  </p>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    message.sender === 'user' 
+                      ? 'bg-primary-600 text-white' 
+                      : 'bg-gray-100 text-gray-600'
+                  }`}>
+                    {message.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                  </div>
+                  <div
+                    className={`px-3 py-2 rounded-lg text-sm ${
+                      message.sender === 'user'
+                        ? 'bg-primary-600 text-white'
+                        : 'bg-gray-100 text-gray-900'
+                    }`}
+                  >
+                    {message.text}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Quick Replies */}
-          {messages.length === 1 && (
-            <div className="px-4 pb-2">
-              <div className="flex flex-wrap gap-2">
-                {quickReplies.map((reply, index) => (
-                  <button
-                    key={index}
-                    onClick={() => handleSendMessage(reply)}
-                    className="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full transition-colors"
-                  >
-                    {reply}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-4 border-t border-gray-200">
+          <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
             <div className="flex space-x-2">
               <input
                 type="text"
                 value={inputMessage}
                 onChange={(e) => setInputMessage(e.target.value)}
                 placeholder="Nhập tin nhắn..."
-                className="flex-1 px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
               />
               <button
                 type="submit"
-                className="px-4 py-2 bg-primary-500 text-white rounded-lg hover:bg-primary-600 transition-colors"
+                className="p-2 bg-primary-600 hover:bg-primary-700 text-white rounded-lg transition-colors"
               >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
+                <Send className="w-4 h-4" />
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* Chat Toggle Button */}
+      {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 left-6 w-14 h-14 bg-gradient-to-r from-green-500 to-blue-500 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-110 text-white z-40 flex items-center justify-center"
+        className="fixed bottom-6 right-6 z-40 p-4 bg-primary-600 hover:bg-primary-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+        aria-label="Open chat"
       >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-          </svg>
-        )}
+        <MessageCircle className="w-6 h-6" />
       </button>
     </>
   );

@@ -1,0 +1,58 @@
+{
+  "name": "ZunaWeb - Thiết kế Website chuyên nghiệp",
+  "short_name": "ZunaWeb",
+  "description": "Nền tảng thiết kế website chuyên nghiệp với giao diện đẹp và dễ sử dụng",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b5cf6",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "vi",
+  "categories": ["business", "productivity", "design"],
+  "icons": [
+    {
+      "src": "/pwa-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/pwa-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Templates",
+      "short_name": "Templates",
+      "description": "Xem các template website",
+      "url": "/templates",
+      "icons": [
+        {
+          "src": "/pwa-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Blog",
+      "short_name": "Blog",
+      "description": "Đọc blog thiết kế",
+      "url": "/blog",
+      "icons": [
+        {
+          "src": "/pwa-192x192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+} 

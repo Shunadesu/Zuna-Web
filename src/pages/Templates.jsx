@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { Search, Filter, Grid, List, Star, Eye, Download, Heart, Clock, Tag } from 'lucide-react';
 import SEO from '../components/SEO';
 
 const Templates = () => {
@@ -7,7 +8,7 @@ const Templates = () => {
   const [filteredTemplates, setFilteredTemplates] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [selectedPrice, setSelectedPrice] = useState('all');
+  const [selectedPrice, _setSelectedPrice] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [isLoading, setIsLoading] = useState(true);
   const [viewMode, setViewMode] = useState('grid'); // grid or list
@@ -27,7 +28,10 @@ const Templates = () => {
       rating: 4.8,
       downloads: 1247,
       updated: '2024-01-15',
-      tags: ['E-commerce', 'Shopping', 'Payment', 'Admin']
+      tags: ['E-commerce', 'Shopping', 'Payment', 'Admin'],
+      views: 8923,
+      isNew: true,
+      isFeatured: true
     },
     {
       id: 2,
@@ -43,7 +47,10 @@ const Templates = () => {
       rating: 4.9,
       downloads: 892,
       updated: '2024-01-12',
-      tags: ['Portfolio', 'Creative', 'Gallery', 'Blog']
+      tags: ['Portfolio', 'Creative', 'Gallery', 'Blog'],
+      views: 15678,
+      isNew: false,
+      isFeatured: true
     },
     {
       id: 3,
@@ -59,7 +66,10 @@ const Templates = () => {
       rating: 4.7,
       downloads: 567,
       updated: '2024-01-10',
-      tags: ['Corporate', 'Business', 'Professional', 'Services']
+      tags: ['Corporate', 'Business', 'Professional', 'Services'],
+      views: 6543,
+      isNew: false,
+      isFeatured: false
     },
     {
       id: 4,
@@ -75,7 +85,10 @@ const Templates = () => {
       rating: 4.6,
       downloads: 734,
       updated: '2024-01-08',
-      tags: ['Restaurant', 'Food', 'Menu', 'Booking']
+      tags: ['Restaurant', 'Food', 'Menu', 'Booking'],
+      views: 12345,
+      isNew: true,
+      isFeatured: false
     },
     {
       id: 5,
@@ -91,7 +104,10 @@ const Templates = () => {
       rating: 4.8,
       downloads: 445,
       updated: '2024-01-05',
-      tags: ['Blog', 'Magazine', 'Content', 'Newsletter']
+      tags: ['Blog', 'Magazine', 'Content', 'Newsletter'],
+      views: 18923,
+      isNew: false,
+      isFeatured: false
     },
     {
       id: 6,
@@ -107,7 +123,10 @@ const Templates = () => {
       rating: 4.7,
       downloads: 323,
       updated: '2024-01-03',
-      tags: ['Real Estate', 'Property', 'Map', 'Listings']
+      tags: ['Real Estate', 'Property', 'Map', 'Listings'],
+      views: 4321,
+      isNew: false,
+      isFeatured: false
     }
   ];
 
@@ -121,11 +140,11 @@ const Templates = () => {
     { id: 'real-estate', name: 'Real Estate', count: mockTemplates.filter(t => t.category === 'real-estate').length }
   ];
 
-  const priceOptions = [
-    { id: 'all', name: 'Tất cả giá' },
-    { id: 'free', name: 'Miễn phí' },
-    { id: 'premium', name: 'Premium' }
-  ];
+  // const priceOptions = [
+  //   { id: 'all', name: 'Tất cả giá' },
+  //   { id: 'free', name: 'Miễn phí' },
+  //   { id: 'premium', name: 'Premium' }
+  // ];
 
   const sortOptions = [
     { id: 'newest', name: 'Mới nhất' },
@@ -133,6 +152,11 @@ const Templates = () => {
     { id: 'rating', name: 'Đánh giá cao' },
     { id: 'downloads', name: 'Tải nhiều' },
     { id: 'name', name: 'Tên A-Z' }
+  ];
+
+  const viewOptions = [
+    { value: 'grid', label: 'Lưới', icon: Grid },
+    { value: 'list', label: 'Danh sách', icon: List }
   ];
 
   useEffect(() => {
@@ -187,31 +211,30 @@ const Templates = () => {
     setFilteredTemplates(filtered);
   }, [templates, searchQuery, selectedCategory, selectedPrice, sortBy]);
 
-  const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('vi-VN');
-  };
+  // const formatDate = (dateString) => {
+  //   return new Date(dateString).toLocaleDateString('vi-VN');
+  // };
 
-  const getCategoryName = (categoryId) => {
-    const category = categories.find(c => c.id === categoryId);
-    return category ? category.name : categoryId;
-  };
+  // const getCategoryName = (categoryId) => {
+  //   const category = categories.find(c => c.id === categoryId);
+  //   return category ? category.name : categoryId;
+  // };
 
   if (isLoading) {
     return (
-      <div className="min-h-screen gradient-bg pt-20">
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 dark:bg-gray-700 rounded w-1/4 mb-8"></div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6">
-                  <div className="h-48 bg-gray-200 dark:bg-gray-700 rounded-lg mb-4"></div>
-                  <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded mb-2"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded mb-4"></div>
-                  <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-2/3"></div>
-                </div>
-              ))}
-            </div>
+          {/* Loading skeleton */}
+          <div className="h-8 bg-gray-200 rounded w-1/4 mb-8"></div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[...Array(6)].map((_, i) => (
+              <div key={i} className="bg-white rounded-2xl shadow-lg p-6">
+                <div className="h-48 bg-gray-200 rounded-lg mb-4"></div>
+                <div className="h-6 bg-gray-200 rounded mb-2"></div>
+                <div className="h-4 bg-gray-200 rounded mb-4"></div>
+                <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -219,335 +242,267 @@ const Templates = () => {
   }
 
   return (
-    <div className="min-h-screen gradient-bg pt-20">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-secondary-50">
       <SEO 
-        title="Templates Website - ZunaWeb"
-        description="Khám phá bộ sưu tập templates website đẹp mắt, hiện đại và dễ tùy chỉnh. Từ e-commerce đến portfolio, blog và business."
-        keywords="website templates, web design templates, responsive templates, modern templates"
+        title="Templates - ZunaWeb"
+        description="Khám phá bộ sưu tập templates website đẹp mắt và chuyên nghiệp. Từ website doanh nghiệp đến portfolio sáng tạo."
+        keywords="templates, website templates, responsive design, modern websites"
       />
-
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 dark:text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-display font-bold text-gray-900 mb-6">
             Templates Website
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Khám phá bộ sưu tập templates đa dạng, từ e-commerce đến portfolio, 
-            được thiết kế với công nghệ hiện đại và tối ưu cho mọi thiết bị.
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Khám phá bộ sưu tập templates đẹp mắt và chuyên nghiệp, được thiết kế để giúp bạn tạo ra website hoàn hảo
           </p>
         </div>
 
-        {/* Filters and Search */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-8">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Search */}
-            <div className="lg:col-span-2">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Tìm kiếm templates..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="form-input pl-10"
-                />
-                <svg
-                  className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+        {/* Filters */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          {/* Search and Category */}
+          <div className="flex flex-col lg:flex-row gap-4 mb-6">
+            <div className="flex-1 relative">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+              <input
+                type="text"
+                placeholder="Tìm kiếm templates..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              />
+            </div>
+            <div className="flex gap-2">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    selectedCategory === category.id
+                      ? 'bg-primary-600 text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
                 >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </div>
-            </div>
-
-            {/* Category Filter */}
-            <div>
-              <select
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(e.target.value)}
-                className="form-select"
-              >
-                {categories.map(category => (
-                  <option key={category.id} value={category.id}>
-                    {category.name} ({category.count})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Price Filter */}
-            <div>
-              <select
-                value={selectedPrice}
-                onChange={(e) => setSelectedPrice(e.target.value)}
-                className="form-select"
-              >
-                {priceOptions.map(option => (
-                  <option key={option.id} value={option.id}>
-                    {option.name}
-                  </option>
-                ))}
-              </select>
+                  {category.name}
+                  <span className="ml-1 text-xs opacity-75">({category.count})</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Additional Filters */}
-          <div className="flex flex-col sm:flex-row justify-between items-center mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+          {/* Sort and View */}
+          <div className="flex flex-col sm:flex-row justify-between items-center mt-6 pt-6 border-t border-gray-200">
             <div className="flex items-center space-x-4 mb-4 sm:mb-0">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Sắp xếp theo:</span>
+              <span className="text-sm text-gray-600">Sắp xếp theo:</span>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="form-select w-auto"
+                className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               >
-                {sortOptions.map(option => (
+                {sortOptions.map((option) => (
                   <option key={option.id} value={option.id}>
                     {option.name}
                   </option>
                 ))}
               </select>
             </div>
-
-            {/* View Mode Toggle */}
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-600 dark:text-gray-400">Xem:</span>
-              <button
-                onClick={() => setViewMode('grid')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'grid'
-                    ? 'bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
-                    : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
-                }`}
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                </svg>
-              </button>
-              <button
-                onClick={() => setViewMode('list')}
-                className={`p-2 rounded-lg transition-colors ${
-                  viewMode === 'list'
-                    ? 'bg-primary-100 text-primary-600 dark:bg-primary-900/30 dark:text-primary-400'
-                    : 'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300'
-                }`}
-              >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd" />
-                </svg>
-              </button>
+            <div className="flex items-center space-x-4">
+              <span className="text-sm text-gray-600">Xem:</span>
+              <div className="flex bg-gray-100 rounded-lg p-1">
+                {viewOptions.map((option) => (
+                  <button
+                    key={option.value}
+                    onClick={() => setViewMode(option.value)}
+                    className={`p-2 rounded-md transition-colors ${
+                      viewMode === option.value
+                        ? 'bg-primary-100 text-primary-600'
+                        : 'text-gray-400 hover:text-gray-600'
+                    }`}
+                  >
+                    <option.icon className="w-4 h-4" />
+                  </button>
+                ))}
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Results Count */}
-        <div className="mb-6">
-          <p className="text-gray-600 dark:text-gray-400">
-            Hiển thị {filteredTemplates.length} template{filteredTemplates.length !== 1 ? 's' : ''}
-            {searchQuery && ` cho "${searchQuery}"`}
+        {/* Results */}
+        <div className="mb-8">
+          <p className="text-gray-600">
+            Hiển thị {filteredTemplates.length} trong tổng số {templates.length} templates
           </p>
         </div>
 
-        {/* Templates Grid/List */}
+        {/* Templates Grid */}
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredTemplates.map((template) => (
-              <div key={template.id} className="card card-hover group">
-                <div className="relative overflow-hidden">
-                  <img
-                    src={template.image}
-                    alt={template.title}
-                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className={`badge ${
-                      template.price === 'free' ? 'badge-success' : 'badge-warning'
-                    }`}>
-                      {template.price === 'free' ? 'Miễn phí' : 'Premium'}
-                    </span>
+              <Link
+                key={template.id}
+                to={`/templates/${template.id}`}
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+              >
+                <div className="relative">
+                  <div className="h-48 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-t-2xl flex items-center justify-center">
+                    <span className="text-primary-600 font-medium">Template Preview</span>
                   </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="badge badge-secondary">
-                      {getCategoryName(template.category)}
+                  {template.isNew && (
+                    <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                      Mới
                     </span>
-                  </div>
+                  )}
+                  {template.isFeatured && (
+                    <span className="absolute top-3 right-3 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">
+                      Nổi bật
+                    </span>
+                  )}
                 </div>
-
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
                     {template.title}
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                  <p className="text-gray-600 mb-4 line-clamp-2">
                     {template.description}
                   </p>
-
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-1">
-                      <div className="flex text-yellow-400">
-                        {[...Array(5)].map((_, i) => (
-                          <svg
-                            key={i}
-                            className={`w-4 h-4 ${i < Math.floor(template.rating) ? 'fill-current' : 'fill-gray-300 dark:fill-gray-600'}`}
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                          </svg>
-                        ))}
-                      </div>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
-                        {template.rating}
-                      </span>
+                  
+                  {/* Rating */}
+                  <div className="flex items-center mb-3">
+                    <div className="flex items-center">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${i < Math.floor(template.rating) ? 'fill-current' : 'fill-gray-300'} text-yellow-400`}
+                        />
+                      ))}
                     </div>
-                    <div className="text-sm text-gray-500 dark:text-gray-400">
-                      {template.downloads.toLocaleString()} tải
-                    </div>
+                    <span className="text-sm text-gray-600 ml-2">
+                      {template.rating}
+                    </span>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {template.tags.slice(0, 3).map((tag, index) => (
-                      <span key={index} className="text-xs bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 px-2 py-1 rounded">
+                  {/* Stats */}
+                  <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                    <div className="flex items-center space-x-4">
+                      <span className="flex items-center">
+                        <Eye className="w-4 h-4 mr-1" />
+                        {template.views.toLocaleString()}
+                      </span>
+                      <span className="flex items-center">
+                        <Download className="w-4 h-4 mr-1" />
+                        {template.downloads.toLocaleString()}
+                      </span>
+                    </div>
+                    <span className="font-semibold text-primary-600">{template.price}</span>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {template.tags.map((tag, index) => (
+                      <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
                         {tag}
                       </span>
                     ))}
                   </div>
-
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-gray-500 dark:text-gray-400">
-                      Cập nhật: {formatDate(template.updated)}
-                    </span>
-                    <Link
-                      to={`/templates/${template.id}`}
-                      className="btn-primary text-sm px-4 py-2"
-                    >
-                      Xem chi tiết
-                    </Link>
-                  </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         ) : (
+          /* List View */
           <div className="space-y-6">
             {filteredTemplates.map((template) => (
-              <div key={template.id} className="card group">
-                <div className="flex flex-col lg:flex-row">
-                  <div className="lg:w-1/3 relative">
-                    <img
-                      src={template.image}
-                      alt={template.title}
-                      className="w-full h-48 lg:h-full object-cover"
-                    />
-                    <div className="absolute top-4 left-4">
-                      <span className={`badge ${
-                        template.price === 'free' ? 'badge-success' : 'badge-warning'
-                      }`}>
-                        {template.price === 'free' ? 'Miễn phí' : 'Premium'}
-                      </span>
+              <Link
+                key={template.id}
+                to={`/templates/${template.id}`}
+                className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 flex flex-col lg:flex-row gap-6"
+              >
+                <div className="relative lg:w-64 lg:flex-shrink-0">
+                  <div className="h-48 lg:h-full bg-gradient-to-br from-primary-100 to-secondary-100 rounded-xl flex items-center justify-center">
+                    <span className="text-primary-600 font-medium">Template Preview</span>
+                  </div>
+                  {template.isNew && (
+                    <span className="absolute top-3 left-3 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                      Mới
+                    </span>
+                  )}
+                  {template.isFeatured && (
+                    <span className="absolute top-3 right-3 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">
+                      Nổi bật
+                    </span>
+                  )}
+                </div>
+                
+                <div className="flex-1">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
+                    {template.title}
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    {template.description}
+                  </p>
+                  
+                  {/* Features */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Tính năng chính:</h4>
+                      <ul className="space-y-1">
+                        {template.features.slice(0, 3).map((feature, index) => (
+                          <li key={index} className="text-sm text-gray-600 flex items-center">
+                            <div className="w-1.5 h-1.5 bg-primary-500 rounded-full mr-2"></div>
+                            {feature}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-900 mb-2">Tech Stack:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {template.techStack.map((tech, index) => (
+                          <span key={index} className="text-xs bg-primary-100 text-primary-800 px-2 py-1 rounded">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="lg:w-2/3 p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div>
-                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                          {template.title}
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 mb-4">
-                          {template.description}
-                        </p>
-                      </div>
-                      <span className="badge badge-secondary">
-                        {getCategoryName(template.category)}
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tính năng chính:</h4>
-                        <ul className="space-y-1">
-                          {template.features.slice(0, 3).map((feature, index) => (
-                            <li key={index} className="text-sm text-gray-600 dark:text-gray-300 flex items-center">
-                              <svg className="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                              </svg>
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-gray-900 dark:text-white mb-2">Tech Stack:</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {template.techStack.map((tech, index) => (
-                            <span key={index} className="text-xs bg-primary-100 dark:bg-primary-900/30 text-primary-800 dark:text-primary-200 px-2 py-1 rounded">
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-6">
-                        <div className="flex items-center space-x-1">
-                          <div className="flex text-yellow-400">
-                            {[...Array(5)].map((_, i) => (
-                              <svg
-                                key={i}
-                                className={`w-4 h-4 ${i < Math.floor(template.rating) ? 'fill-current' : 'fill-gray-300 dark:fill-gray-600'}`}
-                                viewBox="0 0 20 20"
-                              >
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                              </svg>
-                            ))}
-                          </div>
-                          <span className="text-sm text-gray-600 dark:text-gray-400">
-                            {template.rating} ({template.downloads.toLocaleString()} tải)
-                          </span>
-                        </div>
-                        <span className="text-sm text-gray-500 dark:text-gray-400">
-                          Cập nhật: {formatDate(template.updated)}
+                  
+                  {/* Stats and Price */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-6">
+                      <div className="flex items-center">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-4 h-4 ${i < Math.floor(template.rating) ? 'fill-current' : 'fill-gray-300'} text-yellow-400`}
+                          />
+                        ))}
+                        <span className="text-sm text-gray-600 ml-2">
+                          {template.rating}
                         </span>
                       </div>
-                      <Link
-                        to={`/templates/${template.id}`}
-                        className="btn-primary"
-                      >
-                        Xem chi tiết
-                      </Link>
+                      <span className="text-sm text-gray-500">
+                        {template.downloads.toLocaleString()} lượt tải
+                      </span>
                     </div>
+                    <span className="text-lg font-semibold text-primary-600">{template.price}</span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         )}
 
-        {/* No Results */}
-        {filteredTemplates.length === 0 && (
-          <div className="text-center py-12">
-            <svg className="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.33" />
-            </svg>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-              Không tìm thấy template
-            </h3>
-            <p className="text-gray-600 dark:text-gray-300 mb-4">
-              Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm
-            </p>
-            <button
-              onClick={() => {
-                setSearchQuery('');
-                setSelectedCategory('all');
-                setSelectedPrice('all');
-              }}
-              className="btn-primary"
-            >
-              Xóa bộ lọc
-            </button>
-          </div>
-        )}
+        {/* Featured Section */}
+        <div className="mt-16">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2">
+            Templates nổi bật
+          </h3>
+          <p className="text-gray-600 mb-4">
+            Những templates được yêu thích nhất trong tuần
+          </p>
+        </div>
       </div>
     </div>
   );

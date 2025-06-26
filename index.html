@@ -1,44 +1,85 @@
 <!doctype html>
-<html lang="vi">
+<html lang="vi" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- SEO Meta Tags -->
-    <title>ZunaWeb.com - Thiết kế và phát triển web hiện đại</title>
-    <meta name="description" content="ZunaWeb.com - Nền tảng thiết kế và phát triển web hiện đại với giao diện đẹp mắt, tối ưu SEO và trải nghiệm người dùng tuyệt vời. Chuyên mục đa dạng, blog chia sẻ kiến thức và kho giao diện mẫu phong phú." />
-    <meta name="keywords" content="thiết kế web, phát triển web, giao diện mẫu, template, blog công nghệ, SEO, React, TailwindCSS" />
-    <meta name="author" content="ZunaWeb.com" />
+    <!-- Primary Meta Tags -->
+    <title>ZunaWeb - Thiết kế Website chuyên nghiệp</title>
+    <meta name="title" content="ZunaWeb - Thiết kế Website chuyên nghiệp">
+    <meta name="description" content="Nền tảng thiết kế website chuyên nghiệp với giao diện đẹp, dễ sử dụng và tối ưu SEO. Tạo website nhanh chóng với các template đẹp mắt.">
+    <meta name="keywords" content="thiết kế website, web design, template website, responsive design, SEO">
+    <meta name="author" content="ZunaWeb">
+    <meta name="robots" content="index, follow">
     
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="ZunaWeb.com - Thiết kế và phát triển web hiện đại" />
-    <meta property="og:description" content="Nền tảng thiết kế và phát triển web hiện đại với giao diện đẹp mắt, tối ưu SEO và trải nghiệm người dùng tuyệt vời." />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://zunaweb.com" />
-    <meta property="og:image" content="https://zunaweb.com/og-image.jpg" />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zunaweb.com/">
+    <meta property="og:title" content="ZunaWeb - Thiết kế Website chuyên nghiệp">
+    <meta property="og:description" content="Nền tảng thiết kế website chuyên nghiệp với giao diện đẹp, dễ sử dụng và tối ưu SEO.">
+    <meta property="og:image" content="https://zunaweb.com/og-image.jpg">
+    <meta property="og:site_name" content="ZunaWeb">
+    <meta property="og:locale" content="vi_VN">
     
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ZunaWeb.com - Thiết kế và phát triển web hiện đại" />
-    <meta name="twitter:description" content="Nền tảng thiết kế và phát triển web hiện đại với giao diện đẹp mắt, tối ưu SEO và trải nghiệm người dùng tuyệt vời." />
-    <meta name="twitter:image" content="https://zunaweb.com/twitter-image.jpg" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://zunaweb.com/">
+    <meta property="twitter:title" content="ZunaWeb - Thiết kế Website chuyên nghiệp">
+    <meta property="twitter:description" content="Nền tảng thiết kế website chuyên nghiệp với giao diện đẹp, dễ sử dụng và tối ưu SEO.">
+    <meta property="twitter:image" content="https://zunaweb.com/og-image.jpg">
     
-    <!-- Additional Meta Tags -->
-    <meta name="robots" content="index, follow" />
-    <meta name="language" content="Vietnamese" />
-    <meta name="revisit-after" content="7 days" />
-    <meta name="theme-color" content="#0ea5e9" />
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="ZunaWeb">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.json">
     
-    <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Preload Critical Resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"></noscript>
     
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://zunaweb.com" />
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "ZunaWeb",
+      "url": "https://zunaweb.com",
+      "description": "Nền tảng thiết kế website chuyên nghiệp",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://zunaweb.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
   </head>
-  <body>
+  <body class="antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
